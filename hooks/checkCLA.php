@@ -13,6 +13,7 @@ $username=SQLite3::escapeString($argv[4]);
 $user_id=SQLite3::escapeString($argv[5]);
 
 // The URL you'd like to include in the status [see https://developer.github.com/v3/repos/statuses]
+// probably that of your CLA system
 $url="";
 // The message requesting the user to sign, this will appear as a comment in the pull request
 $sign_msg="";
