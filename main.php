@@ -9,7 +9,7 @@ function call_hook($hooks,$org,$repo_name,$number,$username,$user_id)
 			foreach($shooks as $shook){
 				if($shook['repo']===$repo_name){
 					foreach($shook['hooks'] as $hook_script){
-						exec("php ". __DIR__. "hooks/$hook_script $org $repo_name $number $username $user_id",$out,$rc);
+						exec( __DIR__. "/hooks/$hook_script $org $repo_name $number $username $user_id",$out,$rc);
 						if ($rc!==0){
 							echo "hooks/$hook_script failed with $rc :(\n";
 						}

@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
 // an example hook to integrat with this CLA system [https://github.com/kaltura/agent-contrib]
