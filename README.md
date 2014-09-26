@@ -22,6 +22,8 @@ Configuration
 * Edit config.inc and add your credentials.
 * Edit hooks_config.inc to reflect your org, repos to monitor and hooks to run. You can setup multiple orgs, and set diff hooks per repo.
 
+NOTE: Make sure your hooks scripts are executable by the user running the main.php script.
+
 Hook example
 ============
 see hooks/checkCLA.php - an example hook to integrat with this CLA system [https://github.com/kaltura/agent-contrib]
