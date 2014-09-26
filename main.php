@@ -34,12 +34,21 @@ foreach ($orgs as $org){
 		$page++;
 		foreach($repos as $rep){
 			$repo_name=$rep->getName();
-			$pullies=$client->pulls->linkRelations($org, $repo_name,'open');
-			foreach ($pullies as $pull){
-				$number=$pull->getNumber();
-				$username=$pull->getUser()->getLogin();
-				$user_id=$pull->getUser()->getId();
-				call_hook($hooks,$org,$repo_name,$number,$username,$user_id);
+			$morepage=true;
+			$currpage=1;
+			while($more){
+				$client->setPage($currpage);
+				$pullies=$client->pulls->linkRelations($org, $repo_name,'open');
+				if(empty($pullies)){
+					break;
+				}
+				$currpage++;
+				foreach ($pullies as $pull){
+					$number=$pull->getNumber();
+					$username=$pull->getUser()->getLogin();
+					$user_id=$pull->getUser()->getId();
+					call_hook($hooks,$org,$repo_name,$number,$username,$user_id);
+				}
 			}
 		}
 	}
