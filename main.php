@@ -7,7 +7,7 @@ function call_hook($hooks,$org,$repo_name,$number,$username,$user_id)
 		if(isset($hook[$org])){ 
 			$shooks=$hook[$org];
 			foreach($shooks as $shook){
-				if($shook['repo']===$repo_name){
+				if($shook['repo']===$repo_name||$shook['repo']==='ALL'){
 					foreach($shook['hooks'] as $hook_script){
 						exec( __DIR__. "/hooks/$hook_script $org $repo_name $number $username $user_id",$out,$rc);
 						if ($rc!==0){
