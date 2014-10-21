@@ -24,19 +24,17 @@ function call_hook($hooks,$org,$repo_name,$number,$username,$user_id)
 $client = new GitHubClient();
 $client->setCredentials(GITHUB_USER,GITHUB_PASSWD);
 foreach ($orgs as $org){
-	$more=true;
-	$page=0;
-	while ($more){
-		$repos=$client->repos->listOrganizationRepositories($org,'all',100,$page);
+	$page=1;
+	while (true){
+		$repos=$client->repos->listOrganizationRepositories($org,'public',100,$page);
 		if(empty($repos)){
 			break;
 		}
 		$page++;
 		foreach($repos as $rep){
 			$repo_name=$rep->getName();
-			$morepage=true;
 			$currpage=1;
-			while($more){
+			while(true){
 				$client->setPage($currpage);
 				$pullies=$client->pulls->linkRelations($org, $repo_name,'open');
 				if(empty($pullies)){
