@@ -17,7 +17,6 @@ $client = new GitHubClient();
 //$client->setDebug(true);
 $client->setCredentials(GITHUB_USER,GITHUB_PASSWD);
 $cla_checked=null;
-
 try{
 	$client->orgs->members->responseIfRequesterIsNotAnOrganizationMember($org,$username);
 }catch(exception $e){
@@ -32,8 +31,6 @@ try{
 		    die ($db->lastErrorCode() . ' '.$db->lastErrorMsg().' :(');
 		}
 		$res = $result->fetchArray(SQLITE3_ASSOC);
-		$myst= $client->repos->statuses->getCombinedStatus($org, $repo_name, $sha);
-		$state=$myst->getState();
 		if(!isset($res['name'])){
 			$cla_checked=false;
 			$statuses=$client->repos->statuses->listStatusesForSpecificRef($org, $repo_name,$sha);
@@ -43,22 +40,17 @@ try{
 				}
 			}
 			if (!$cla_checked){
-				//echo "Would have commented\n";
 				$client->comments->createComment($org, $repo_name, $pull_id, "Hi @".$username.",\n$sign_msg");
-				$cla_checked=true;
-			}
-			if ($state!=='pending'){
+				$myst= $client->repos->statuses->getCombinedStatus($org, $repo_name, $sha);
 				$client->repos->statuses->createStatus($org, $repo_name, $sha, 'pending',$url,"Pending for $username to sign CLA",'CLA');
 				echo "set $pull_id on $repo_name by $username to pending status\n";
-			}else{
-				echo "Status for $pull_id on $repo_name by $username is $state\n";
+				$cla_checked=true;
 			}
 		}else{
-			if ($state!=='success'){
+			$myst= $client->repos->statuses->getCombinedStatus($org, $repo_name, $sha);
+			if ($myst->getState()!=='success'){
 				$client->repos->statuses->createStatus($org, $repo_name, $sha, 'success',$url,$username. ' signed the CLA, request can be merged.','CLA');
 				echo "set $pull_id on $repo_name by $username to success status\n";
-			}else{
-				echo "Status for $pull_id on $repo_name by $username is $state\n";
 			}
 		}
 	}
