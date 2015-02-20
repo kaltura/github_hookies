@@ -68,9 +68,7 @@ function call_hook($client,$org,$repo_name,$pull_id,$username,$user_id){
 		if (!empty($user_company)){
 			$info_card.="Company: $user_company\n";
 		}
-			$created_date = date_create($created);
-			$html_state_string="<font color=\"#76D55C\"><b>$state</b></font>";
-			error_log("$repo_name,$username,$pull_id,'$title','".date_format($created_date,'r')."'\n",3,OUTPUT_FILE);
-			$html_state_string="<font color=\"#D59B5C\"><b>$state</b></font>";
+		$created_date = date_create($created);
+		error_log("$repo_name,$username,$pull_id,'$title','".date_format($created_date,'r')."'\n",3,OUTPUT_FILE);
 	}
 }
