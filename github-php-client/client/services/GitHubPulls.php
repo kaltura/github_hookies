@@ -55,9 +55,21 @@ class GitHubPulls extends GitHubService
 	/**
 	 * Get a single pull request
 	 * 
-	 * @return GitHubFullPull
+	 * @return GitHubPull
 	 */
 	public function getSinglePullRequest($owner, $repo, $number)
+	{
+		$data = array();
+		
+		return $this->client->request("/repos/$owner/$repo/pulls/$number", 'GET', $data, 200, 'GitHubPull');
+	}
+
+	/**
+	 * Get a single full pull request
+	 * 
+	 * @return GitHubFullPull
+	 */
+	public function getSingleFullPullRequest($owner, $repo, $number)
 	{
 		$data = array();
 		
@@ -77,9 +89,19 @@ class GitHubPulls extends GitHubService
 		if(!is_null($state))
 			$data['state'] = $state;
 		
-		return $this->client->request("/repos/$owner/$repo/pulls/$number", 'PATCH', $data, 200, 'GitHubPull');
+		return $this->client->request("/repos/$owner/$repo/pulls/$number", 'PATCH', json_encode($data), 200, 'GitHubPull');
 	}
-	
+	public function update($owner, $repo, $number, $state,$title,$body)
+	{
+		$data = array();
+		if(!is_null($state))
+			$data['state'] = $state;
+		if(!is_null($body))
+			$data['body'] = $body;
+		if(!is_null($title))
+			$data['title'] = $title;
+		return $this->client->request("/repos/$owner/$repo/pulls/$number", 'PATCH', json_encode($data), 200, 'GitHubPull');
+	}
 	/**
 	 * List commits on a pull request
 	 * 
