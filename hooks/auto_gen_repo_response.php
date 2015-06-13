@@ -17,10 +17,9 @@ $client->setCredentials(GITHUB_USER,GITHUB_PASSWD);
 $cla_checked=null;
 try{
 	$client->orgs->members->responseIfRequesterIsNotAnOrganizationMember($org,$username);
-	$client->comments->createComment($org, $repo_name, $pull_id, "Hi @".$username.",\n$msg");
-	$client->pulls->update($org, $repo_name, $pull_id, 'closed',null,null);
 
 }catch(exception $e){
-	throw $e;
+	$client->comments->createComment($org, $repo_name, $pull_id, "Hi @".$username.",\n$msg");
+	$client->pulls->update($org, $repo_name, $pull_id, 'closed',null,null);
 }
 
