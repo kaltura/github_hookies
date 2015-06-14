@@ -57,8 +57,30 @@ $issue_hooks=array(
 				'repo'=>'ALL',
 				// scripts to run, each will get to following as argv:
 				// $org $repo_name $number $username $user_id	
-				'hooks'=>array('dashg_issues.php'),
+				'hooks'=>array('dashg_issues.php','general_repo_auto_response.php'),
 			),
+			array(
+				'repo'=>'nginx-vod-module',
+				// scripts to run, each will get to following as argv:
+				// $org $repo_name $number $username $user_id	
+				'hooks'=>array('nginx_modules_repo_auto_response.php'),
+			),
+			array(
+				'repo'=>'nginx-parallel-module',
+				// scripts to run, each will get to following as argv:
+				// $org $repo_name $number $username $user_id	
+				'hooks'=>array('nginx_modules_repo_auto_response.php'),
+			),
+			array(
+				'repo'=>'nginx-secure-token-module',
+				// scripts to run, each will get to following as argv:
+				// $org $repo_name $number $username $user_id	
+				'hooks'=>array('nginx_modules_repo_auto_response.php'),
+			),
+			/*array(
+				'repo'=>'platform-install-packages',
+				'hooks'=>array('general_repo_auto_response.php'),
+			),*/
 		)
 	),
 );
