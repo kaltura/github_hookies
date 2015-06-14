@@ -11,9 +11,7 @@ $user_id=SQLite3::escapeString($argv[5]);
 $msg="
 Thank for you reporting an issue and helping improve Kaltura!
 
-To get the fastest response time, and help the maintainers review and test your reported issues or suggestions, please
-ensure that your issue includes the following (please comment with more info if you have not included all this info in
-your original issue):
+To get the fastest response time, and help the maintainers review and test your reported issues or suggestions, please ensure that your issue includes the following (please comment with more info if you have not included all this info in your original issue):
  - Is the issue you're experiencing consistent and across platforms? or does it only happens on certain conditions?
     please provide as much details as possible.
  - Is Nginx installed from the kaltura-nginx RPM or deb package?
