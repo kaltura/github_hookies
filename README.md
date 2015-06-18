@@ -1,11 +1,12 @@
 github_hookies
 ==============
 
-A generic pull request hook.
+An all purpose github hooks system.
 
 This can be used for various goals, such as:
 * CLA verification
 * Auto builds upon pull requests
+* Auto response to new issues
 * Other tasks you may need
 
 
