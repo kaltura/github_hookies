@@ -1,6 +1,6 @@
 <?php
 // repo name and a list of scripts to run on it.
-$pull_hooks=array(
+$hooks=array(
 	array(
 		// your org as key, can be many
 		'kaltura'=>array(
@@ -8,7 +8,7 @@ $pull_hooks=array(
 				'repo'=>'ALL',
 				// scripts to run, each will get to following as argv:
 				// $org $repo_name $number $username $user_id	
-				'hooks'=>array('checkCLA.php','dashg.php'),
+				'hooks'=>array('checkCLA.php','general_repo_auto_response.php'),//,'output_closed_issues.php','output_open_issues.php'),
 			),
 			array(
 				'repo'=>'KalturaGeneratedAPIClientsCLI',
@@ -57,30 +57,8 @@ $issue_hooks=array(
 				'repo'=>'ALL',
 				// scripts to run, each will get to following as argv:
 				// $org $repo_name $number $username $user_id	
-				'hooks'=>array('dashg_issues.php','general_repo_auto_response.php'),
-			),
-			array(
-				'repo'=>'nginx-vod-module',
-				// scripts to run, each will get to following as argv:
-				// $org $repo_name $number $username $user_id	
-				'hooks'=>array('nginx_modules_repo_auto_response.php'),
-			),
-			array(
-				'repo'=>'nginx-parallel-module',
-				// scripts to run, each will get to following as argv:
-				// $org $repo_name $number $username $user_id	
-				'hooks'=>array('nginx_modules_repo_auto_response.php'),
-			),
-			array(
-				'repo'=>'nginx-secure-token-module',
-				// scripts to run, each will get to following as argv:
-				// $org $repo_name $number $username $user_id	
-				'hooks'=>array('nginx_modules_repo_auto_response.php'),
-			),
-			/*array(
-				'repo'=>'platform-install-packages',
 				'hooks'=>array('general_repo_auto_response.php'),
-			),*/
+			),
 		)
 	),
 );

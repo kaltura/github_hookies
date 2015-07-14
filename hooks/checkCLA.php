@@ -20,6 +20,13 @@ $cla_checked=null;
 try{
 	$client->orgs->members->responseIfRequesterIsNotAnOrganizationMember($org,$username);
 }catch(exception $e){
+	$issue=$client->issues->getIssue($org, $repo_name, $pull_id);
+	$state=$issue->getState();
+	$is_pull_request=$issue->getPullRequest();
+	if (!isset($is_pull_request)){
+		echo "$repo_name/$pull_id is not a pull. Exiting..\n";
+		exit(0);
+	}
 	$commits=$client->pulls->listCommitsOnPullRequest($org, $repo_name,$pull_id);
 	foreach($commits as $commit){
 		$shas[]=$commit->getSha();
@@ -40,6 +47,8 @@ try{
 				}
 			}
 			if (!$cla_checked){
+				echo "Would have commented\n";
+				mail ('jess.portnoy@kaltura.com'  , "Would have commented" , "Hi @".$username.",\n$sign_msg");
 				$client->comments->createComment($org, $repo_name, $pull_id, "Hi @".$username.",\n$sign_msg");
 				$myst= $client->repos->statuses->getCombinedStatus($org, $repo_name, $sha);
 				$client->repos->statuses->createStatus($org, $repo_name, $sha, 'pending',$url,"Pending for $username to sign CLA",'CLA');

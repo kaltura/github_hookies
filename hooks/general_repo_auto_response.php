@@ -9,7 +9,7 @@ $issue_id=SQLite3::escapeString($argv[3]);
 $username=SQLite3::escapeString($argv[4]);
 $user_id=SQLite3::escapeString($argv[5]);
 // we will have a custom message for these repos
-$exclude_repos=array('nginx-vod-module','nginx-parallel-module','nginx-secure-token-module');
+$exclude_repos=array('nginx-vod-module','nginx-parallel-module','nginx-secure-token-module','platform-install-packages');
 if (in_array($repo_name,$exclude_repos)){
 	echo "$repo_name is excluded\n";
 	return(0);
@@ -31,6 +31,7 @@ To get the fastest response time, and help the maintainers review and test your 
 ```	
 	# dpkg -l \"kaltura-*\"
 ```
+ - If running a self hosted ENV - provide the MySQL server version used
  - If running a self hosted ENV - is this a single all in 1 server or a cluster?
  - If running a self hosted ENV, while making the problematic request, run:
 ```
@@ -58,11 +59,12 @@ try{
 }catch(exception $e){
 	$issue=$client->issues->getIssue($org, $repo_name, $issue_id);
 	$state=$issue->getState();
+	$is_pull_request=$issue->getPullRequest();
 	$created=$issue->getCreatedAt();
 	$created_date = date_create($created);
 	$created_epoch=date_format($created_date, 'U');
 // this is Jun 13 2015. When the hook was first put in. Did not want to retro comment.
-	if ($state==='open' and $created_epoch>1434168000){
+	if (!isset($is_pull_request) && ($state==='open' && $created_epoch>1434168000)){
 		echo "$created_epoch, $state\n";
 		$comments=$client->comments->listCommentsOnAnIssue($org, $repo_name, $issue_id);
 		foreach ($comments as $comment){
