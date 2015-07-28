@@ -87,7 +87,8 @@ function call_hook($client,$org,$repo_name,$issue_id,$username,$user_id,$status)
 			$row = $res->fetch(PDO::FETCH_ASSOC);
 			if(isset($row['issue_id'])){
 				$res=$db->prepare('update github_contribs set issue_status=:status,title=:title,last_update=:updated,request_type=:request_type WHERE issue_id=:issue_id and repo_name=:repo_name and user_name=:user_name');
-				$res->execute(array('status'=>$status,'title'=>$title1,'updated'=>$updated,'request_type'=>$request_type));
+				$res->execute(array('issue_id'=>$issue_id,'user_name' => $username,'repo_name'=>$repo_name,'status'=>$status,'title'=>$title1,'updated'=>$updated,'request_type'=>$request_type));
+				echo "'issue_id'=>$issue_id,'user_name' => $username,'repo_name'=>$repo_name,'status'=>$status,'title'=>$title1,'updated'=>$updated,'request_type'=>$request_type\n";
 			}else{
 				$res=$db->prepare('insert into github_contribs values(NULL,:repo_name,:user_name,:issue_id,:title,:updated,:status,:request_type)');
 
