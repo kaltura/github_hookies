@@ -8,7 +8,7 @@ $hooks=array(
 				'repo'=>'ALL',
 				// scripts to run, each will get to following as argv:
 				// $org $repo_name $number $username $user_id	
-				'hooks'=>array('checkCLA.php','general_repo_auto_response.php'),//,'output_closed_issues.php','output_open_issues.php'),
+				'hooks'=>array('checkCLA.php','general_repo_auto_response1.php'),//,'output_closed_issues.php','output_open_issues.php'),
 			),
 			array(
 				'repo'=>'KalturaGeneratedAPIClientsCLI',
@@ -57,7 +57,7 @@ $issue_hooks=array(
 				'repo'=>'ALL',
 				// scripts to run, each will get to following as argv:
 				// $org $repo_name $number $username $user_id	
-				'hooks'=>array('general_repo_auto_response.php'),
+				'hooks'=>array('general_repo_auto_response1.php'),
 			),
 		)
 	),
